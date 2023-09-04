@@ -14,7 +14,7 @@ export default function SideBar({ pageName }) {
                             Dashboard
                         </li>
                     </Link>
-                    <Link to="/admin2023/all-students">
+                    <Link to="/admin2023/all-student">
                         <li className={pageName == 'all-students' ? "active" : ''}>
                             All Students
                         </li>

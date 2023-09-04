@@ -82,17 +82,17 @@ export default function StudeentLogin() {
                                 setUpMessage(false, 'Access denied! You have voted Already')
 
                             }
-                            // else if (doc.data().surname === doc.data().password) {
-                            //     setMessage({ success: true, message: 'Login Success...' })
-                            //     // setNavigator('/updateAccount')
-                            //     setNavigator('/vote')
+                            else if (doc.data().surname === doc.data().password) {
+                                setMessage({ success: true, message: 'Login Success...' })
+                                setNavigator('/updateAccount')
+                                // setNavigator('/vote')
 
 
-                            //     setGlobalUser(JSON.stringify(doc.data()))
-                            //     setGlobalUserType(USER_STUDENT)
-                            //     setUser(doc.data())
-                            //     setUserType(USER_STUDENT)
-                            // }
+                                // setGlobalUser(JSON.stringify(doc.data()))
+                                // setGlobalUserType(USER_STUDENT)
+                                setUser(doc.data())
+                                setUserType(USER_STUDENT)
+                            }
                             else {
                                 setNavigator('/vote')
 
@@ -168,13 +168,13 @@ export default function StudeentLogin() {
                 }
                 {/* {
                     message.message !== null & message.success &
-                    <div class="alert alert-success" role="alert">
+                    <div className="alert alert-success" role="alert">
                         {message.message}
                     </div>
                 }
                 {
                     message.message !== null & !message.success &
-                    <div class="alert alert-danger" role="alert">
+                    <div className="alert alert-danger" role="alert">
                         {message.message}
                     </div>
                 } */}

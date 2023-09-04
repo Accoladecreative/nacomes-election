@@ -14,8 +14,8 @@ import { db } from '../../firebase-config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt, faVoteYea } from '@fortawesome/free-solid-svg-icons';
 import { Alert, Button } from 'react-bootstrap';
-import { USER_STUDENT } from '../../storage/store';
-import { db_student } from '../../commands/StorageConstants';
+import { USER_STUDENT, resetGlobalUser } from '../../storage/store';
+import { db_candidate, db_student } from '../../commands/StorageConstants';
 // import '../admin/main.css'
 import bgImg from '../../assets/cpe-logo.jpg'
 
@@ -75,7 +75,7 @@ export default function AllCandidates() {
 
 
     const getAllCandidate = async () => {
-        const q = query(collection(db, 'candidate2023')//, where(collectionName == db_student ? 'matricNo' :
+        const q = query(collection(db, db_candidate)//, where(collectionName == db_student ? 'matricNo' :
             // 'username', "==", username));
         )
 
@@ -198,9 +198,6 @@ export default function AllCandidates() {
 
 
 
-
-
-
     function submitVote() {
         console.log(votePresident)
         console.log(voteVP)
@@ -219,12 +216,13 @@ export default function AllCandidates() {
             voteWelfare !== '' &&
             voteSocialDir !== '' &&
             voteGenSec !== '' &&
-            // voteAGenSec !== '' &&
-            // voteFinSec !== '' &&
-            // voteTreasurer !== '' &&
-            // voteDirectorStudies !== '' &&
+            voteAGenSec !== '' &&
+            voteFinSec !== '' &&
+            voteTreasurer !== '' &&
+            voteDirectorStudies !== '' &&
             voteSport !== '' &&
             votePRO
+            // true
         ) {
 
             voteCandidate(votePresident)
@@ -232,9 +230,9 @@ export default function AllCandidates() {
             voteCandidate(voteWelfare)
             voteCandidate(voteSocialDir)
             voteCandidate(voteGenSec)
-            // voteCandidate(voteAGenSec)
-            // voteCandidate(voteFinSec)
-            // voteCandidate(voteTreasurer)
+            voteCandidate(voteAGenSec)
+            voteCandidate(voteFinSec)
+            voteCandidate(voteTreasurer)
             voteCandidate(voteDirectorStudies)
             voteCandidate(voteSport)
             voteCandidate(votePRO)
@@ -253,6 +251,9 @@ export default function AllCandidates() {
                     // const uu = JSON.parse(user).matricNo
                     // const uu = JSON.parse(user).matricNo
 
+
+
+                    // reset
                     console.log(updateRecord(db_student, uu.toLowerCase(), { voted: true }))
                     localStorage.removeItem('user')
                     setUser(null)
@@ -278,7 +279,7 @@ export default function AllCandidates() {
                 // localStorage.removeItem('user')
                 // setUser(null)
 
-            }, 5000);
+            }, 3000);
 
         } else {
             alert('Complete Voting before submitting')
@@ -299,6 +300,13 @@ export default function AllCandidates() {
 
         setVoteSuccessfully(false)
     }
+
+
+    function logout() {
+        resetData()
+        resetGlobalUser()
+        window.location.reload()
+    }
     return (
         // <>he</>
         <>
@@ -309,9 +317,7 @@ export default function AllCandidates() {
             <div
 
                 className='container pt-3' style={{
-
                     // backgroundImage: `url(${bgImg})`,
-
                     float: userType !== USER_ADMIN && 'none'
                 }}>
 
@@ -337,14 +343,22 @@ export default function AllCandidates() {
                         {allCandidates.length !== 0 ?
                             allCandidates.map((candidate, id) => (
                                 candidate.position == position.name &&
-                                <>
+                                <div>
+                                    {/* {candidate.profileImageUrl &&
+                                        <img src={candidate.profileImageUrl} alt="Image Description" className='class="rounded-circle"'></img>} */}
                                     <div className='row'>
 
-                                        {/* {candidate.imageUrl !== '' &&
-                                            <img src={candidate.imageUrl} class="rounded col-2 m-auto" alt="Cinque Terre" />
-                                        } */}
+                                        {candidate.profileImageUrl &&
+                                            <div className="col-sm-3 col-md-2 col-lg-2 col-xl-3">
+                                                <img
+                                                    src={candidate.profileImageUrl}
+                                                    alt="Profile"
+                                                    className="rounded-circle"
+                                                    style={{ width: '100px', height: '100px' }}
+                                                /> </div>}
                                         {/* <div> */}
-                                        <div className={'col-md-10 col-sm-8'}>
+
+                                        <div className={'col-md-7 col-sm-7'}>
                                             {/* <p style={{ float: 'left', fontSize: 10, marginTop: 10 }}>{id + 1}</p> */}
                                             <h4 className='mb-0'>
                                                 {candidate.fullName}
@@ -384,7 +398,7 @@ export default function AllCandidates() {
 
 
                                     {/* } */}
-                                </>
+                                </div>
                             ))
 
                             :
@@ -400,10 +414,15 @@ export default function AllCandidates() {
                     >Vote Successful</Alert>
                 }
 
-                {userType !== USER_ADMIN && <div className='row'>
-                    <Button variant='primary' title='' onClick={submitVote} className='col-sm-4 col-md-2 col-lg-2 m-1'>Submit Vote</Button>
-                    <Button variant='secondary' title='' onClick={resetVote} className='col-sm-4 col-md-2 col-lg-2 m-1'>Reset Vote</Button>
-                </div>}
+                {userType !== USER_ADMIN &&
+                    <div className='d-flex justify-content-between'>
+                        {/* <div className='row'> */}
+                        <Button Button variant='primary' title='' onClick={submitVote} className='col-sm-4 col-md-2 col-lg-2 m-1'>Submit Vote</Button>
+                        <Button variant='secondary' title='' onClick={resetVote} className='col-sm-4 col-md-2 col-lg-2 m-1'>Reset Vote</Button>
+                        {/* <div className='d-flex justify-content-end'> */}
+                        <Button variant='danger' title='' onClick={logout} className='col-sm-4 col-md-2 col-lg-2 m-1 mt-3 '>Logout</Button>
+                    </div>
+                }
             </div>
         </>
     );

@@ -134,8 +134,8 @@ export async function exist(collectionName, documentName,) {
     const docRef = doc(db, collectionName, documentName,);
     const docSnap = await getDoc(docRef);
 
+    console.log("Document data:", docSnap.data());
     if (docSnap.exists()) {
-        // console.log("Document data:", docSnap.data());
         return true
     } else {
         // doc.data() will be undefined in this case

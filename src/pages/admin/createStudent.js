@@ -25,7 +25,7 @@ export default function CreateStudent() {
     const [messageSuccess, setMessageSuccess] = useState(false)
 
 
-
+    console.log(allData.length)
     function saveAllStudents() {
         // console.log('dataaaaa:' + allData[0].matricNo.split(''))
         // const data = allData[0].matricNo.split('')
@@ -82,7 +82,7 @@ export default function CreateStudent() {
     }
 
     useEffect(() => {
-        //  saveAllStudents()
+        // saveAllStudents()
     }, [])
 
 

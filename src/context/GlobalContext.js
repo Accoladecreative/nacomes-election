@@ -13,6 +13,7 @@ export default function ContextProvider(props) {
     const [user, setUser] = useState(localStorage.getItem('user'))
     const [userType, setUserType] = useState(USER_STUDENT)
     const [voted, setVoted] = useState(false)
+    // const [students, setstudents] = useState(0)
 
 
     const [electionStatus, setElectionStatus] = useState(localStorage.getItem('election'))

@@ -20,6 +20,7 @@ import AdminLogout from './pages/admin/adminLogout';
 import StudentLogin from './pages/student/login';
 import { GlobalUser, GlobalUserType, } from './storage/store';
 import ElectionIsOver from './pages/student/electionIsOver';
+import AdminMainDashboard from './pages/admin/AdminDashboard';
 
 {/* <Route path='/student/' element={<Dashboard />} />
 <Route path='/student/updateAccount' element={<UpdateAccount />} />
@@ -91,12 +92,12 @@ function App() {
 
 
 
-      <Route path='/admin2023/' element={isAdmin ? <AllStudents /> : <Navigate to={'/admin2023/login'} />} />
+      <Route path='/admin2023/' element={isAdmin ? <AdminMainDashboard /> : <Navigate to={'/admin2023/login'} />} />
       {/* <Router basename='/admin'> */}
       <Route path='/admin2023/login' element={isAdmin ? <Navigate to={'/admin2023/dashboard'} /> : <AdminLogin />} />
       <Route path='/admin2023/logout' element={isAdmin ? <AdminLogout /> : <Navigate to={'/admin2023/login'} />} />
 
-      <Route path='/admin2023/dashboard' element={isAdmin ? <AllStudents /> : <Navigate to={'/admin2023/login'} />} />
+      <Route path='/admin2023/dashboard' element={isAdmin ? <AdminMainDashboard /> : <Navigate to={'/admin2023/login'} />} />
       <Route path='/admin2023/create-student' element={isAdmin ? <CreateStudent /> : <Navigate to={'/admin2023/login'} />} />
       <Route path='/admin2023/create-candidate' element={isAdmin ? <CreateCandidate /> : <Navigate to={'/admin2023/login'} />} />
       {/* <Route path='/admin2023/create-post' element={isAdmin ? <CreateCandidate /> : <Navigate to={'/admin2023/login'} />} /> */}

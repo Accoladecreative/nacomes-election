@@ -1,8 +1,8 @@
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytesResumable, getDownloadURL, uploadBytes } from "firebase/storage";
 
 import Button from "react-bootstrap/Button";
 // import Firebase from '../../../firebase-config';
@@ -10,7 +10,7 @@ import Button from "react-bootstrap/Button";
 import './heading.css'
 
 import { collection, query, orderBy, onSnapshot, addDoc, doc, setDoc } from "firebase/firestore"
-import { db } from "../../firebase-config";
+import { db, storage } from "../../firebase-config";
 import SideBar from "./sideNav";
 import { allLevels, allPositions } from "../../model/localData";
 import { exist } from "../../commands/firebaseCommand";
@@ -26,9 +26,7 @@ export default function CreateCandidate() {
     const [position, setPosition] = useState("");
 
     const [fullName, setFullName] = useState('')
-
-
-    const [imageUrl, setImageUrl] = useState('')
+    const [profileImageUrl, setProfileImageUrl] = useState('')
 
 
     const [level, setLevel] = useState('')
@@ -36,13 +34,17 @@ export default function CreateCandidate() {
 
 
 
+    const [submitSuccess, setSubmitSuccess] = useState(false)
+    const [submitError, setSubmitError] = useState(false)
+    const [error, setError] = useState(false)
+
     // progress
     const [percent, setPercent] = useState(0);
 
     const [file, setFile] = useState("");
     function handleChange(event) {
         setFile(event.target.files[0]);
-        console.log(event.target.files)
+        console.log(event.target.files[0])
     }
     const handleUploadImage = () => {
         if (!file) {
@@ -51,7 +53,8 @@ export default function CreateCandidate() {
         }
 
         setUploading(true)
-        const storageRef = ref(db, `/files/${matricNo}`);
+        const storageRef = ref(storage, `/files/${matricNo}`);
+        // const storageRef = storage.ref(`images/${image.name}`).put(fil);;
 
         // progress can be paused and resumed. It also exposes progress updates.
         // Receives the storage reference and the file to upload.
@@ -73,19 +76,70 @@ export default function CreateCandidate() {
             },
             () => {
                 setUploading(false)
-
                 // download url
                 getDownloadURL(uploadTask.snapshot.ref).then((url) => {
                     console.log("url:" + url);
-                    setImageUrl(url)
+                    setProfileImageUrl(url)
+                    setTimeout(() => {
+                        saveCandidate(url)
+                    }, 800);
                     return true
                 });
             }
         );
     };
 
-    const [submitSuccess, setSubmitSuccess] = useState(false)
-    // const [submitSuccess, setSubmitSuccess] = useState(false)
+    async function saveCandidate(url) {
+        if (profileImageUrl == "") {
+            alert("Kindly add profile image")
+            return
+        }
+
+
+        const date = new Date()
+
+
+        const user = await setDoc(doc(db, db_candidate, matricNo), {
+
+            fullName: fullName,
+            matricNo: matricNo.toUpperCase(),
+            position: position,
+            level: level,
+            profileImageUrl: profileImageUrl,
+            vote: 0,
+            profilePicture: profileImageUrl,
+            dateCreated: date.toDateString(),
+
+            // // February 5, 2023 at 2:52:36 AM UTC+1
+            // // (timestamp)
+            // eligibileToVote: false,
+            // // id: 2,
+            // matricNo: matricNo,
+            // name: '',
+            // position: position,
+            // voted: false,
+        })
+
+        // docRef.id !== undefined &&
+        handleSuccess()
+        // alert('Success')
+
+        // const doc = await addDoc(
+        //     doc(collection(db, 'election2023'), {
+        //         dateCreated: '',
+        //         // February 5, 2023 at 2:52:36 AM UTC+1
+        //         // (timestamp)
+        //         eligibileToVote: false,
+        //         id: 2,
+        //         matricNo: matricNo,
+        //         name: '',
+        //         position: position,
+        //         voted: false,
+        //     }))
+
+        // console.log('doc success with id:' + docRef.id)
+
+    }
 
 
     // const [studentDetails, setStudentDetails] = useState(null);
@@ -93,7 +147,7 @@ export default function CreateCandidate() {
 
     // const post
 
-    console.log('detail:' + matricNo + '\n' + position + '\n+' + fullName + '\n+' + level)
+    // console.log('detail:' + matricNo + '\n' + position + '\n+' + fullName + '\n+' + level)
 
 
 
@@ -115,51 +169,9 @@ export default function CreateCandidate() {
                 if (res) {
                     alert('Candidate already exist')
                     return
-                } else bb()
+                } else console.log("profile image: " + handleUploadImage())//bb()
             })
-            async function bb() {
 
-                // const docRef = await addDoc(collection(db, db_candidate), {
-                const user = await setDoc(doc(db, db_candidate, matricNo), {
-
-                    fullName: fullName,
-                    matricNo: matricNo.toUpperCase(),
-                    position: position,
-                    level: level,
-                    imageUrl: imageUrl,
-                    vote: 0,
-                    dateCreated: date.toDateString(),
-
-                    // // February 5, 2023 at 2:52:36 AM UTC+1
-                    // // (timestamp)
-                    // eligibileToVote: false,
-                    // // id: 2,
-                    // matricNo: matricNo,
-                    // name: '',
-                    // position: position,
-                    // voted: false,
-                })
-
-                // docRef.id !== undefined &&
-                handleSuccess()
-                // alert('Success')
-
-                // const doc = await addDoc(
-                //     doc(collection(db, 'election2023'), {
-                //         dateCreated: '',
-                //         // February 5, 2023 at 2:52:36 AM UTC+1
-                //         // (timestamp)
-                //         eligibileToVote: false,
-                //         id: 2,
-                //         matricNo: matricNo,
-                //         name: '',
-                //         position: position,
-                //         voted: false,
-                //     }))
-
-                // console.log('doc success with id:' + docRef.id)
-
-            }
         } catch (e) {
             console.error(e);
         }
@@ -188,6 +200,17 @@ export default function CreateCandidate() {
     }
 
 
+    function handleError() {
+        setSubmitError(true)
+        setTimeout(() => {
+            setSubmitError(false)
+        }, 3000);
+    }
+    useEffect(() => {
+        if (error !== '')
+            handleError()
+    }, [error])
+
     return (
 
         <>
@@ -210,10 +233,15 @@ export default function CreateCandidate() {
                         className="mb-3"
                     >Create Candidate</h3>
                     {submitSuccess &&
-                        <div class="alert alert-success" role="alert">
+                        <div className="alert alert-success" role="alert">
                             Success
                         </div>
                     }
+                    {/* {submitError &&
+                        <div className="alert alert-warning" role="alert">
+                            {error}
+                        </div>
+                    } */}
 
 
 
@@ -341,7 +369,7 @@ export default function CreateCandidate() {
                     </Form.Group>
 
 
-                    {/* <Form.Group size="lg" controlId="matricNo" className="mt-3">
+                    <Form.Group size="lg" controlId="matricNo" className="mt-3">
 
                         <Form.Label>Student Picture</Form.Label>
 
@@ -357,7 +385,7 @@ export default function CreateCandidate() {
 
                             type="file"
                             onChange={(e) => handleChange(e)}
-                            accept="/image/*"
+                            accept="image/jpeg, image/png, image/gif"
                         // value={matricNo}
 
                         // placeholder='cpe/201x/xxxx'
@@ -365,9 +393,9 @@ export default function CreateCandidate() {
 
                         // onChange={(e) => setMatricNo(e.target.value.trim())}
 
-                        /> 
+                        />
 
-                </Form.Group>*/}
+                    </Form.Group>
 
                     {/* {studentDetails !== null&& <div>
                     <p>{studentDetails}</p>

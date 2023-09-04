@@ -19,7 +19,7 @@ export const GlobalUserType = () => localStorage.getItem('userType')
 export const setGlobalUserType = (userType) => localStorage.setItem('userType', userType)
 
 
-export const GlobalAllStudents = () => { return localStorage.getItem('allStudents') }
+export const GlobalAllStudents = async () => { return localStorage.getItem('allStudents') }
 export const GlobalAllCandidate = () => localStorage.getItem('allCandidates')
 export const setGlobalAllStudents = (value) => localStorage.setItem('allStudents', value)
 export const setGlobalAllCandidate = (value) => localStorage.setItem('allCandidates', value)

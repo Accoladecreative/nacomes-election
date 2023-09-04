@@ -1,27 +1,27 @@
-import React from 'react'
-import SideBar from './sideNav'
+// import React from 'react'
+// import SideBar from './sideNav'
 
-export default function AdminDashboard() {
-
-
-    function startElection() {
-
-    }
-    function startElection() {
-
-    }
+// export default function AdminDashboard() {
 
 
-    return (
+//     function startElection() {
 
-        <>
-            <SideBar pageName={'dashboard'} />
-            <div>Election Status</div>
-            <>
+//     }
+//     function startElection() {
 
-            </>
+//     }
 
-        </>
 
-    )
-}
+//     return (
+
+//         <>
+//             <SideBar pageName={'dashboard'} />
+//             <div>Election Status</div>
+//             <>
+
+//             </>
+
+//         </>
+
+//     )
+// }

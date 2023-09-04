@@ -47,7 +47,7 @@ export default function AdminLogin() {
 
 
 
-        console.log(`Texting ${username}: ${validateInput(username)}`)
+        // console.log(`Texting ${username}: ${validateInput(username)}`)
     }, [username])
 
 
@@ -135,13 +135,13 @@ export default function AdminLogin() {
                 }
                 {/* {
                     message.message !== null & message.success &
-                    <div class="alert alert-success" role="alert">
+                    <div className="alert alert-success" role="alert">
                         {message.message}
                     </div>
                 }
                 {
                     message.message !== null & !message.success &
-                    <div class="alert alert-danger" role="alert">
+                    <div className="alert alert-danger" role="alert">
                         {message.message}
                     </div>
                 } */}

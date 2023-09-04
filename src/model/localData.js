@@ -15,18 +15,18 @@ export const allPositions = [
     {
         id: 3,
         name: '',
-        // name: 'Assitance General Secretary',
+        name: 'Assitance General Secretary',
         level: [300, 200]
     }, {
         name: '',
         id: 4,
-        // name: 'Financial Secretary',
+        name: 'Financial Secretary',
         level: [300, 200]
 
     }, {
         id: 5,
         name: '',
-        // name: 'Treasurer',
+        name: 'Treasurer',
         level: [300]
     },
     {

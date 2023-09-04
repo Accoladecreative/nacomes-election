@@ -54,10 +54,6 @@ export default function AllStudents() {
 
                 querySnapshot.docs.map(doc => allStudents.push(doc.data()))
                 // querySnapshot.docs.map(doc => students.push(doc.data()))
-
-
-
-
                 setAllStudents(allStudents)
                 // setAllStudents(querySnapshot)
                 setLoading('')
@@ -76,7 +72,7 @@ export default function AllStudents() {
         }
 
     }
-
+    console.log("GlobalAllStudents: " + localStorage.getItem('allStudents'))
 
     async function getStudents() {
         const students = getAllDocument2('students')
