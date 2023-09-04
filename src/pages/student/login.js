@@ -47,7 +47,7 @@ export default function StudeentLogin() {
 
 
 
-        console.log(`Texting ${matricNo}: ${validateInput(matricNo)}`)
+        //   console.log(`Texting ${matricNo}: ${validateInput(matricNo)}`)
     }, [matricNo])
 
 
@@ -80,9 +80,12 @@ export default function StudeentLogin() {
                             if (doc.data().voted) {
                                 // setMessage({ success: false, message: '' })
                                 setUpMessage(false, 'Access denied! You have voted Already')
-
+                                return
                             }
-                            else if (doc.data().surname === doc.data().password) {
+                            console.log('====================================');
+                            console.log(doc.data().surname == doc.data().password);
+                            console.log('====================================');
+                            if (doc.data().surname === doc.data().password) {
                                 setMessage({ success: true, message: 'Login Success...' })
                                 setNavigator('/updateAccount')
                                 // setNavigator('/vote')
@@ -95,8 +98,6 @@ export default function StudeentLogin() {
                             }
                             else {
                                 setNavigator('/vote')
-
-
                                 setMessage({ success: true, message: 'Login Success' })
                                 setGlobalUser(JSON.stringify(doc.data()))
                                 setGlobalUserType(USER_STUDENT)

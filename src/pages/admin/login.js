@@ -75,7 +75,7 @@ export default function AdminLogin() {
                     // JSON.stringify("loginnnn" + e[0])
                     e.forEach((doc) => {
                         // doc.data() is never undefined for query doc snapshots
-                        console.log(doc.id, " => ", doc.data());
+                        //      console.log(doc.id, " => ", doc.data());
                         if (doc.data().password == password) {
                             setMessage({ success: true, message: 'Login Success' })
                             setGlobalUser(doc.data())

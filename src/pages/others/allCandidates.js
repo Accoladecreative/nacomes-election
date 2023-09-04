@@ -31,8 +31,8 @@ export default function AllCandidates() {
     useEffect(() => {
         try {
             const uu = JSON.parse(user).matricNo
-            console.log('user:' + uu)
-            console.log('user:' + user)
+            //  console.log('user:' + uu)
+            //  console.log('user:' + user)
 
             // userType = USER_STUDENT && user.matricNo !== null && user.matricNo !== undefined &&
             // setFbId(user.matricNo)

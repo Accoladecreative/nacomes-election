@@ -106,6 +106,10 @@ function App() {
       <Route path='/admin2023/all-student' element={isAdmin ? <AllStudents /> : <Navigate to={'/admin2023/login'} />} />
 
 
+
+      <Route path='/super-admin2023/' element={<AdminLogin />} />
+
+
       <Route path='*' element={<PageNotFound />} />
 
     </Routes>

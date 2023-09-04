@@ -58,19 +58,19 @@ export default function UpdateAccount() {
 
 
             exist(db_student, matricNo).then(res => {
-                console.log(res)
+                ///     console.log(res)
                 if (res) {
                     const docRef = doc(db, db_student, matricNo)
 
                     // updateDoc(db_student,password,)
                     updateDoc(docRef, { password: password }).then(res => {
-                        console.log(JSON.stringify(res))
+                        ///     console.log(JSON.stringify(res))
                         resetGlobalUser()
                         resetData()
                     }).catch(e => {
-                        console.log('====================================');
-                        console.log(e);
-                        console.log('====================================');
+                        // console.log('====================================');
+                        console.error(e);
+                        // console.log('====================================');
                     })
 
                     // bb
