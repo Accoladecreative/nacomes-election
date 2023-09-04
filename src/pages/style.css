@@ -1,0 +1,8 @@
+.list-subItem{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.list-with-divider{
+    border-bottom: 1px solid grey;
+}

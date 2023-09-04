@@ -1,0 +1,6 @@
+export const db_student = 'students'
+export const db_candidate = 'candidate2023'
+export const db_admin = 'admin'
+// export const db_student =' students'
+// export const db_student =' students'
+// export const db_student =' students'

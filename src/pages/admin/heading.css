@@ -1,0 +1,21 @@
+h3{
+    /* background-color: #e21212; */
+    width: 100%;
+    color: black;
+    border-bottom: 1px solid black;
+    /* color: white; */
+
+    /* padding: 10px; */
+    /* border-radius: 5px; */
+}
+
+.position{
+    background-color: darkblue;
+    width: 100%;
+    color: white;
+    /* border-bottom: 1px solid black; */
+    /* color: white; */
+
+    padding: 10px;
+    border-radius: 5px;
+}

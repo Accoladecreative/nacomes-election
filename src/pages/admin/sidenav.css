@@ -1,0 +1,58 @@
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.container{
+    float:right;
+    width: 80%;
+}
+
+nav{
+    float:left;
+     margin: 0;
+    width: 20%;
+    /* height: 100%; */
+    background-color: grey;
+    color:black;
+    height: 100vh;
+
+}
+nav ul{
+    padding: 0;
+}
+nav ul li{
+    list-style: none;
+    padding: 10px;
+    margin-left: 0;
+}
+nav ul a{
+    text-decoration: none;
+    color: white;
+}
+
+
+nav ul li:hover{
+    list-style: none;
+    padding: 12px;
+    margin-left: 0;
+    /* background-color: darkblue; */
+    transform: scale(1.007);
+
+
+}
+
+nav ul .active{
+    list-style: none;
+    padding: 12px;
+    margin-left: 0;
+    background-color: darkblue;
+    transform: scale(1.007);
+}
+
+
+.page-name{
+    justify-self: center;
+    color: darkblue;
+}
