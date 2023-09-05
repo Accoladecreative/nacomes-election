@@ -82,10 +82,10 @@ export default function StudeentLogin() {
                                 setUpMessage(false, 'Access denied! You have voted Already')
                                 return
                             }
-                            console.log('====================================');
-                            console.log(doc.data().surname == doc.data().password);
-                            console.log('====================================');
-                            if (doc.data().surname === doc.data().password) {
+                            // console.log('====================================');
+                            // console.log(doc.data().surname == doc.data().password);
+                            // console.log('====================================');
+                            if (doc.data().surname == doc.data().password) {
                                 setMessage({ success: true, message: 'Login Success...' })
                                 setNavigator('/updateAccount')
                                 // setNavigator('/vote')

@@ -56,3 +56,99 @@ nav ul .active{
     justify-self: center;
     color: darkblue;
 }
+
+
+.sidebar {
+    width: 250px;
+     /* Set your desired width for the sidebar */
+    background-color: #333;
+    color: #fff;
+    transition: transform 0.3s;
+  }
+  
+  .sidebar.open {
+    transform: translateX(-100%);
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  li.active {
+    background-color: #444;
+  }
+  
+  span.hidden {
+    display: none;
+  }
+  
+  .menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 10px;
+    background-color: #444;
+  }
+  
+  .menu-toggle svg {
+    font-size: 24px;
+  }
+  
+  /* Add media queries to control responsive behavior */
+  @media (max-width: 768px) {
+    .sidebar {
+      width: 60px; /* Adjust the width for small screens */
+    }
+  
+    .sidebar.open {
+      transform: translateX(0);
+    }
+  
+    .menu-toggle {
+      display: flex;
+    }
+  
+    .menu-toggle.open {
+      background-color: transparent;
+    }
+    
+  li {
+    font-size: 0; /* Hide labels on small screens */
+  }
+
+  li svg {
+    font-size: 30px; /* Increase icon size on small screens */
+padding: 10px;  
+}
+  
+    ul {
+      flex-direction: column;
+    }
+  
+    li {
+      justify-content: center;
+      padding: 5px;
+    }
+  
+    span {
+      display: block;
+      margin-left: 10px; 
+    }
+  
+    span.hidden {
+      display: inline;
+    }
+
+    li span {
+        display: none; /* Hide labels on small screens */
+      }
+  }
+  
